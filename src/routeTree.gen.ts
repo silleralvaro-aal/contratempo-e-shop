@@ -10,33 +10,80 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContattiRouteImport } from './routes/contatti'
+import { Route as ManifatturaRouteImport } from './routes/manifattura'
+import { Route as CollezioneIndexRouteImport } from './routes/collezione.index'
+import { Route as CollezioneSlugRouteImport } from './routes/collezione.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContattiRoute = ContattiRouteImport.update({
+  id: '/contatti',
+  path: '/contatti',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ManifatturaRoute = ManifatturaRouteImport.update({
+  id: '/manifattura',
+  path: '/manifattura',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollezioneIndexRoute = CollezioneIndexRouteImport.update({
+  id: '/collezione/',
+  path: '/collezione/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollezioneSlugRoute = CollezioneSlugRouteImport.update({
+  id: '/collezione/$slug',
+  path: '/collezione/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contatti': typeof ContattiRoute
+  '/manifattura': typeof ManifatturaRoute
+  '/collezione/$slug': typeof CollezioneSlugRoute
+  '/collezione/': typeof CollezioneIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contatti': typeof ContattiRoute
+  '/manifattura': typeof ManifatturaRoute
+  '/collezione/$slug': typeof CollezioneSlugRoute
+  '/collezione': typeof CollezioneIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contatti': typeof ContattiRoute
+  '/manifattura': typeof ManifatturaRoute
+  '/collezione/$slug': typeof CollezioneSlugRoute
+  '/collezione/': typeof CollezioneIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/contatti' | '/manifattura' | '/collezione/$slug' | '/collezione/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/contatti' | '/manifattura' | '/collezione/$slug' | '/collezione'
+  id:
+    | '__root__'
+    | '/'
+    | '/contatti'
+    | '/manifattura'
+    | '/collezione/$slug'
+    | '/collezione/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContattiRoute: typeof ContattiRoute
+  ManifatturaRoute: typeof ManifatturaRoute
+  CollezioneSlugRoute: typeof CollezioneSlugRoute
+  CollezioneIndexRoute: typeof CollezioneIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +95,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contatti': {
+      id: '/contatti'
+      path: '/contatti'
+      fullPath: '/contatti'
+      preLoaderRoute: typeof ContattiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/manifattura': {
+      id: '/manifattura'
+      path: '/manifattura'
+      fullPath: '/manifattura'
+      preLoaderRoute: typeof ManifatturaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collezione/': {
+      id: '/collezione/'
+      path: '/collezione'
+      fullPath: '/collezione/'
+      preLoaderRoute: typeof CollezioneIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collezione/$slug': {
+      id: '/collezione/$slug'
+      path: '/collezione/$slug'
+      fullPath: '/collezione/$slug'
+      preLoaderRoute: typeof CollezioneSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContattiRoute: ContattiRoute,
+  ManifatturaRoute: ManifatturaRoute,
+  CollezioneSlugRoute: CollezioneSlugRoute,
+  CollezioneIndexRoute: CollezioneIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
