@@ -46,6 +46,7 @@ export default defineConfig({
           {
             urlPattern: ({ url, request }) =>
               url.origin === self.location.origin &&
+              !url.pathname.startsWith("/api/") &&
               ["style", "script", "image", "font"].includes(request.destination),
             handler: "CacheFirst",
             options: {
