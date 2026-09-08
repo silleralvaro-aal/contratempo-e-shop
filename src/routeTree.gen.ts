@@ -14,6 +14,7 @@ import { Route as ContattiRouteImport } from './routes/contatti'
 import { Route as ManifatturaRouteImport } from './routes/manifattura'
 import { Route as CollezioneIndexRouteImport } from './routes/collezione.index'
 import { Route as CollezioneSlugRouteImport } from './routes/collezione.$slug'
+import { Route as ApiPublicImmaginiSplatRouteImport } from './routes/api/public/immagini/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const CollezioneSlugRoute = CollezioneSlugRouteImport.update({
   path: '/collezione/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicImmaginiSplatRoute = ApiPublicImmaginiSplatRouteImport.update({
+  id: '/api/public/immagini/$',
+  path: '/api/public/immagini/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/manifattura': typeof ManifatturaRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione/': typeof CollezioneIndexRoute
+  '/api/public/immagini/$': typeof ApiPublicImmaginiSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/manifattura': typeof ManifatturaRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione': typeof CollezioneIndexRoute
+  '/api/public/immagini/$': typeof ApiPublicImmaginiSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,25 @@ export interface FileRoutesById {
   '/manifattura': typeof ManifatturaRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione/': typeof CollezioneIndexRoute
+  '/api/public/immagini/$': typeof ApiPublicImmaginiSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/contatti' | '/manifattura' | '/collezione/$slug' | '/collezione/'
+    | '/'
+    | '/contatti'
+    | '/manifattura'
+    | '/collezione/$slug'
+    | '/collezione/'
+    | '/api/public/immagini/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contatti' | '/manifattura' | '/collezione/$slug' | '/collezione'
+  to:
+    | '/'
+    | '/contatti'
+    | '/manifattura'
+    | '/collezione/$slug'
+    | '/collezione'
+    | '/api/public/immagini/$'
   id:
     | '__root__'
     | '/'
@@ -76,6 +96,7 @@ export interface FileRouteTypes {
     | '/manifattura'
     | '/collezione/$slug'
     | '/collezione/'
+    | '/api/public/immagini/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -84,6 +105,7 @@ export interface RootRouteChildren {
   ManifatturaRoute: typeof ManifatturaRoute
   CollezioneSlugRoute: typeof CollezioneSlugRoute
   CollezioneIndexRoute: typeof CollezioneIndexRoute
+  ApiPublicImmaginiSplatRoute: typeof ApiPublicImmaginiSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -123,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollezioneSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/immagini/$': {
+      id: '/api/public/immagini/$'
+      path: '/api/public/immagini/$'
+      fullPath: '/api/public/immagini/$'
+      preLoaderRoute: typeof ApiPublicImmaginiSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -132,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   ManifatturaRoute: ManifatturaRoute,
   CollezioneSlugRoute: CollezioneSlugRoute,
   CollezioneIndexRoute: CollezioneIndexRoute,
+  ApiPublicImmaginiSplatRoute: ApiPublicImmaginiSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
