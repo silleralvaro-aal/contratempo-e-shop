@@ -29,6 +29,10 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const { data: catalogo } = useSuspenseQuery(catalogQuery);
+  const evidenza = catalogo.filter((p) => p.featured);
+  const vetrina = (evidenza.length > 0 ? evidenza : catalogo).slice(0, 3);
+
   return (
     <>
       <section className="hero-radial flex min-h-screen flex-col items-center justify-center px-5 text-center">
