@@ -17,6 +17,7 @@ import { Route as ManifatturaRouteImport } from './routes/manifattura'
 import { Route as CollezioneIndexRouteImport } from './routes/collezione.index'
 import { Route as CollezioneSlugRouteImport } from './routes/collezione.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
 import { Route as ApiPublicImmaginiSplatRouteImport } from './routes/api/public/immagini/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -58,6 +59,11 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminIdRoute = AuthenticatedAdminIdRouteImport.update({
+  id: '/admin/$id',
+  path: '/admin/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ApiPublicImmaginiSplatRoute = ApiPublicImmaginiSplatRouteImport.update({
   id: '/api/public/immagini/$',
   path: '/api/public/immagini/$',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/manifattura': typeof ManifatturaRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione/': typeof CollezioneIndexRoute
+  '/admin/$id': typeof AuthenticatedAdminIdRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/immagini/$': typeof ApiPublicImmaginiSplatRoute
 }
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/manifattura': typeof ManifatturaRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione': typeof CollezioneIndexRoute
+  '/admin/$id': typeof AuthenticatedAdminIdRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/immagini/$': typeof ApiPublicImmaginiSplatRoute
 }
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/manifattura': typeof ManifatturaRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione/': typeof CollezioneIndexRoute
+  '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/immagini/$': typeof ApiPublicImmaginiSplatRoute
 }
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/manifattura'
     | '/collezione/$slug'
     | '/collezione/'
+    | '/admin/$id'
     | '/admin/'
     | '/api/public/immagini/$'
   fileRoutesByTo: FileRoutesByTo
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
     | '/manifattura'
     | '/collezione/$slug'
     | '/collezione'
+    | '/admin/$id'
     | '/admin'
     | '/api/public/immagini/$'
   id:
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '/manifattura'
     | '/collezione/$slug'
     | '/collezione/'
+    | '/_authenticated/admin/$id'
     | '/_authenticated/admin/'
     | '/api/public/immagini/$'
   fileRoutesById: FileRoutesById
@@ -199,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/$id': {
+      id: '/_authenticated/admin/$id'
+      path: '/admin/$id'
+      fullPath: '/admin/$id'
+      preLoaderRoute: typeof AuthenticatedAdminIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/immagini/$': {
       id: '/api/public/immagini/$'
       path: '/api/public/immagini/$'
@@ -210,10 +229,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminIdRoute: typeof AuthenticatedAdminIdRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminIdRoute: AuthenticatedAdminIdRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 
