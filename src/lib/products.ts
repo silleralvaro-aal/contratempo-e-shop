@@ -3,86 +3,49 @@ import notturno from "@/assets/watch-notturno.jpg";
 import aurora from "@/assets/watch-aurora.jpg";
 import meccanica from "@/assets/watch-meccanica.jpg";
 
+export type ProductSpec = { label: string; value: string };
+
 export type Product = {
+  id: string;
   slug: string;
   name: string;
   subtitle: string;
   eyebrow: string;
-  price: number;
-  image: string;
   description: string;
-  specs: { label: string; value: string }[];
+  price: number;
+  images: string[];
+  specs: ProductSpec[];
+  available: boolean;
+  featured: boolean;
+  inventory: number;
+  sortOrder: number;
 };
 
-export const products: Product[] = [
-  {
-    slug: "venatura-radica",
-    name: "Venatura",
-    subtitle: "Radica",
-    eyebrow: "Esemplare Unico — Pezzo Unico",
-    price: 4200,
-    image: venatura,
-    description:
-      "La perfezione geometrica dell'argento incontra l'imperfezione sublime della natura. Ogni quadrante è intagliato da legno massello. La \u201cRadica\u201d con i suoi nodi naturali rende ogni orologio una creazione irripetibile. Nessuno sarà uguale al tuo.",
-    specs: [
-      { label: "Cassa (Case)", value: "Argento massiccio 925" },
-      { label: "Movimento", value: "ETA Svizzero Automatico" },
-      { label: "Quadrante (Dial)", value: "Legno Radica Naturale" },
-      { label: "Cinturino", value: "Pelle toscana marrone" },
-    ],
-  },
-  {
-    slug: "notturno-ardesia",
-    name: "Notturno",
-    subtitle: "Ardesia",
-    eyebrow: "Edizione Limitata — 50 Esemplari",
-    price: 3650,
-    image: notturno,
-    description:
-      "Il silenzio della notte milanese fissato in un quadrante di ardesia levigata a mano. Linee severe, luce discreta: un orologio che non chiede attenzione, la ottiene.",
-    specs: [
-      { label: "Cassa (Case)", value: "Acciaio spazzolato 316L" },
-      { label: "Movimento", value: "Automatico Svizzero 42h" },
-      { label: "Quadrante (Dial)", value: "Ardesia naturale" },
-      { label: "Cinturino", value: "Alligatore nero" },
-    ],
-  },
-  {
-    slug: "aurora-champagne",
-    name: "Aurora",
-    subtitle: "Champagne",
-    eyebrow: "Collezione Permanente",
-    price: 5100,
-    image: aurora,
-    description:
-      "Un quadrante guilloché color champagne che cattura la prima luce del mattino. Oro rosa e pelle cognac per chi misura il tempo in momenti, non in ore.",
-    specs: [
-      { label: "Cassa (Case)", value: "Oro rosa 18kt" },
-      { label: "Movimento", value: "Automatico manifattura" },
-      { label: "Quadrante (Dial)", value: "Guilloché champagne" },
-      { label: "Cinturino", value: "Pelle cognac cucita a mano" },
-    ],
-  },
-  {
-    slug: "meccanica-scheletro",
-    name: "Meccanica",
-    subtitle: "Scheletro",
-    eyebrow: "Alta Complicazione",
-    price: 7800,
-    image: meccanica,
-    description:
-      "Nulla da nascondere: il movimento è esposto, ogni ruota è visibile. Duecento ore di finitura manuale per mostrare il cuore che batte contro il tempo.",
-    specs: [
-      { label: "Cassa (Case)", value: "Platino 950" },
-      { label: "Movimento", value: "Scheletrato a carica manuale" },
-      { label: "Quadrante (Dial)", value: "Aperto, ponti rodiati" },
-      { label: "Cinturino", value: "Pelle verde bosco" },
-    ],
-  },
-];
+/** Immagini di riserva per gli esemplari storici della manifattura. */
+const fallbackImages: Record<string, string> = {
+  "venatura-radica": venatura,
+  "notturno-ardesia": notturno,
+  "aurora-champagne": aurora,
+  "meccanica-scheletro": meccanica,
+};
 
-export function getProduct(slug: string) {
-  return products.find((p) => p.slug === slug);
+export const placeholderImage = venatura;
+
+/** Trasforma un percorso dell'archivio immagini in un URL utilizzabile. */
+export function imageUrl(path: string): string {
+  if (/^(https?:)?\/\//.test(path) || path.startsWith("/")) return path;
+  return `/api/public/immagini/${path.split("/").map(encodeURIComponent).join("/")}`;
+}
+
+export function productImage(product: Pick<Product, "slug" | "images">): string {
+  const first = product.images.find((i) => i.trim().length > 0);
+  if (first) return imageUrl(first);
+  return fallbackImages[product.slug] ?? placeholderImage;
+}
+
+export function productImages(product: Pick<Product, "slug" | "images">): string[] {
+  const list = product.images.filter((i) => i.trim().length > 0).map(imageUrl);
+  return list.length > 0 ? list : [productImage(product)];
 }
 
 export const formatEuro = (value: number) =>
@@ -91,3 +54,40 @@ export const formatEuro = (value: number) =>
     currency: "EUR",
     minimumFractionDigits: 2,
   }).format(value);
+
+type Row = {
+  id: string;
+  slug: string;
+  name: string;
+  subtitle: string | null;
+  eyebrow: string | null;
+  description: string | null;
+  price: number | string;
+  images: string[] | null;
+  specs: unknown;
+  available: boolean;
+  featured: boolean;
+  inventory: number;
+  sort_order: number;
+};
+
+export function toProduct(row: Row): Product {
+  const specs = Array.isArray(row.specs)
+    ? (row.specs as ProductSpec[]).filter((s) => s && typeof s.label === "string")
+    : [];
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    subtitle: row.subtitle ?? "",
+    eyebrow: row.eyebrow ?? "",
+    description: row.description ?? "",
+    price: Number(row.price),
+    images: row.images ?? [],
+    specs,
+    available: row.available,
+    featured: row.featured,
+    inventory: row.inventory,
+    sortOrder: row.sort_order,
+  };
+}
