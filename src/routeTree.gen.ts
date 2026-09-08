@@ -10,14 +10,28 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContattiRouteImport } from './routes/contatti'
 import { Route as ManifatturaRouteImport } from './routes/manifattura'
 import { Route as CollezioneIndexRouteImport } from './routes/collezione.index'
 import { Route as CollezioneSlugRouteImport } from './routes/collezione.$slug'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
+import { Route as ApiPublicImmaginiSplatRouteImport } from './routes/api/public/immagini/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContattiRoute = ContattiRouteImport.update({
@@ -40,50 +54,103 @@ const CollezioneSlugRoute = CollezioneSlugRouteImport.update({
   path: '/collezione/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminIdRoute = AuthenticatedAdminIdRouteImport.update({
+  id: '/admin/$id',
+  path: '/admin/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ApiPublicImmaginiSplatRoute = ApiPublicImmaginiSplatRouteImport.update({
+  id: '/api/public/immagini/$',
+  path: '/api/public/immagini/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/contatti': typeof ContattiRoute
   '/manifattura': typeof ManifatturaRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione/': typeof CollezioneIndexRoute
+  '/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/immagini/$': typeof ApiPublicImmaginiSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/contatti': typeof ContattiRoute
   '/manifattura': typeof ManifatturaRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione': typeof CollezioneIndexRoute
+  '/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/api/public/immagini/$': typeof ApiPublicImmaginiSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/contatti': typeof ContattiRoute
   '/manifattura': typeof ManifatturaRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione/': typeof CollezioneIndexRoute
+  '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/immagini/$': typeof ApiPublicImmaginiSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/contatti' | '/manifattura' | '/collezione/$slug' | '/collezione/'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contatti' | '/manifattura' | '/collezione/$slug' | '/collezione'
-  id:
-    | '__root__'
     | '/'
+    | '/auth'
     | '/contatti'
     | '/manifattura'
     | '/collezione/$slug'
     | '/collezione/'
+    | '/admin/$id'
+    | '/admin/'
+    | '/api/public/immagini/$'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/auth'
+    | '/contatti'
+    | '/manifattura'
+    | '/collezione/$slug'
+    | '/collezione'
+    | '/admin/$id'
+    | '/admin'
+    | '/api/public/immagini/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/contatti'
+    | '/manifattura'
+    | '/collezione/$slug'
+    | '/collezione/'
+    | '/_authenticated/admin/$id'
+    | '/_authenticated/admin/'
+    | '/api/public/immagini/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ContattiRoute: typeof ContattiRoute
   ManifatturaRoute: typeof ManifatturaRoute
   CollezioneSlugRoute: typeof CollezioneSlugRoute
   CollezioneIndexRoute: typeof CollezioneIndexRoute
+  ApiPublicImmaginiSplatRoute: typeof ApiPublicImmaginiSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -93,6 +160,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contatti': {
@@ -123,15 +204,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollezioneSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/$id': {
+      id: '/_authenticated/admin/$id'
+      path: '/admin/$id'
+      fullPath: '/admin/$id'
+      preLoaderRoute: typeof AuthenticatedAdminIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/immagini/$': {
+      id: '/api/public/immagini/$'
+      path: '/api/public/immagini/$'
+      fullPath: '/api/public/immagini/$'
+      preLoaderRoute: typeof ApiPublicImmaginiSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminIdRoute: typeof AuthenticatedAdminIdRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminIdRoute: AuthenticatedAdminIdRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   ContattiRoute: ContattiRoute,
   ManifatturaRoute: ManifatturaRoute,
   CollezioneSlugRoute: CollezioneSlugRoute,
   CollezioneIndexRoute: CollezioneIndexRoute,
+  ApiPublicImmaginiSplatRoute: ApiPublicImmaginiSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

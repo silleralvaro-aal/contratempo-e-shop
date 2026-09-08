@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { X, Minus, Plus, Trash2 } from "lucide-react";
 import { useCart } from "@/lib/cart";
-import { formatEuro } from "@/lib/products";
+import { formatEuro, productImage } from "@/lib/products";
 
 export function CartDrawer() {
   const { isOpen, close, lines, total, setQuantity, remove, clear } = useCart();
@@ -67,7 +67,7 @@ export function CartDrawer() {
               {lines.map(({ product, quantity }) => (
                 <li key={product.slug} className="flex gap-4 border-b border-border pb-6">
                   <img
-                    src={product.image}
+                    src={productImage(product)}
                     alt={`${product.name} ${product.subtitle}`}
                     loading="lazy"
                     width={1024}

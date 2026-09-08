@@ -1,9 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { formatEuro, type Product } from "@/lib/products";
+import { formatEuro, productImage, type Product } from "@/lib/products";
 import { useCart } from "@/lib/cart";
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
+  const esaurito = product.inventory <= 0;
 
   return (
     <article className="group border border-border bg-surface">
@@ -13,7 +14,7 @@ export function ProductCard({ product }: { product: Product }) {
         className="block overflow-hidden bg-black"
       >
         <img
-          src={product.image}
+          src={productImage(product)}
           alt={`Orologio ${product.name} ${product.subtitle}`}
           loading="lazy"
           width={1024}
@@ -34,9 +35,10 @@ export function ProductCard({ product }: { product: Product }) {
           <button
             type="button"
             onClick={() => add(product)}
-            className="bg-primary px-6 py-3 text-[12px] uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-[#8a6140]"
+            disabled={esaurito}
+            className="bg-primary px-6 py-3 text-[12px] uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-[#8a6140] disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Aggiungi
+            {esaurito ? "Esaurito" : "Aggiungi"}
           </button>
           <Link
             to="/collezione/$slug"
