@@ -71,7 +71,7 @@ function Home() {
             Esemplari
           </h2>
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {products.slice(0, 3).map((p) => (
+            {vetrina.map((p) => (
               <ProductCard key={p.slug} product={p} />
             ))}
           </div>
