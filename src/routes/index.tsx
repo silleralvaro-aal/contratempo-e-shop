@@ -1,8 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { ProductCard } from "@/components/ProductCard";
-import { products } from "@/lib/products";
+import { catalogQuery } from "./collezione.index";
 
 export const Route = createFileRoute("/")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(catalogQuery),
+  errorComponent: () => (
+    <p className="px-6 pt-40 text-center text-sm text-muted-foreground">
+      Contenuto momentaneamente non disponibile.
+    </p>
+  ),
   head: () => ({
     meta: [
       { title: "Contratempo | Alta Orologeria Italiana" },
