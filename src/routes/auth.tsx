@@ -121,19 +121,32 @@ function Auth() {
           </button>
         </form>
 
-        <div className="my-6 flex items-center gap-4">
-          <span className="h-px flex-1 bg-border" />
-          <span className="text-[10px] uppercase tracking-[0.2em] text-subtle">oppure</span>
-          <span className="h-px flex-1 bg-border" />
-        </div>
-
         <button
           type="button"
-          onClick={google}
-          className="w-full border border-subtle px-8 py-4 text-[12px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+          onClick={recupera}
+          className="mt-4 w-full text-center text-[11px] uppercase tracking-[0.2em] text-subtle transition-colors hover:text-primary"
         >
-          Continua con Google
+          Password dimenticata?
         </button>
+
+        {googleDisponibile && (
+          <>
+            <div className="my-6 flex items-center gap-4">
+              <span className="h-px flex-1 bg-border" />
+              <span className="text-[10px] uppercase tracking-[0.2em] text-subtle">oppure</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+
+            <button
+              type="button"
+              onClick={google}
+              className="w-full border border-subtle px-8 py-4 text-[12px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+            >
+              Continua con Google
+            </button>
+          </>
+        )}
+
 
         <button
           type="button"
