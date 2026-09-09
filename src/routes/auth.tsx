@@ -59,7 +59,31 @@ function Auth() {
     }
   };
 
+  const googleDisponibile =
+    typeof window !== "undefined" &&
+    (window.location.hostname.endsWith("lovable.app") ||
+      window.location.hostname.endsWith("lovableproject.com") ||
+      window.location.hostname === "localhost");
+
+  const recupera = async () => {
+    setErrore(null);
+    setAvviso(null);
+    if (!email) {
+      setErrore("Inserisci prima la tua e-mail.");
+      return;
+    }
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/reset`,
+    });
+    if (error) {
+      setErrore(error.message);
+      return;
+    }
+    setAvviso("Ti abbiamo inviato un'e-mail per impostare la password.");
+  };
+
   const google = async () => {
+
     setErrore(null);
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin,
@@ -121,19 +145,32 @@ function Auth() {
           </button>
         </form>
 
-        <div className="my-6 flex items-center gap-4">
-          <span className="h-px flex-1 bg-border" />
-          <span className="text-[10px] uppercase tracking-[0.2em] text-subtle">oppure</span>
-          <span className="h-px flex-1 bg-border" />
-        </div>
-
         <button
           type="button"
-          onClick={google}
-          className="w-full border border-subtle px-8 py-4 text-[12px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+          onClick={recupera}
+          className="mt-4 w-full text-center text-[11px] uppercase tracking-[0.2em] text-subtle transition-colors hover:text-primary"
         >
-          Continua con Google
+          Password dimenticata?
         </button>
+
+        {googleDisponibile && (
+          <>
+            <div className="my-6 flex items-center gap-4">
+              <span className="h-px flex-1 bg-border" />
+              <span className="text-[10px] uppercase tracking-[0.2em] text-subtle">oppure</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+
+            <button
+              type="button"
+              onClick={google}
+              className="w-full border border-subtle px-8 py-4 text-[12px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+            >
+              Continua con Google
+            </button>
+          </>
+        )}
+
 
         <button
           type="button"

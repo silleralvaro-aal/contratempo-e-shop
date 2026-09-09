@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContattiRouteImport } from './routes/contatti'
 import { Route as ManifatturaRouteImport } from './routes/manifattura'
+import { Route as AuthResetRouteImport } from './routes/auth.reset'
 import { Route as CollezioneIndexRouteImport } from './routes/collezione.index'
 import { Route as CollezioneSlugRouteImport } from './routes/collezione.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -44,6 +45,11 @@ const ManifatturaRoute = ManifatturaRouteImport.update({
   path: '/manifattura',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthResetRoute = AuthResetRouteImport.update({
+  id: '/reset',
+  path: '/reset',
+  getParentRoute: () => AuthRoute,
+} as any)
 const CollezioneIndexRoute = CollezioneIndexRouteImport.update({
   id: '/collezione/',
   path: '/collezione/',
@@ -72,9 +78,10 @@ const ApiPublicImmaginiSplatRoute = ApiPublicImmaginiSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/contatti': typeof ContattiRoute
   '/manifattura': typeof ManifatturaRoute
+  '/auth/reset': typeof AuthResetRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione/': typeof CollezioneIndexRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
@@ -83,9 +90,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/contatti': typeof ContattiRoute
   '/manifattura': typeof ManifatturaRoute
+  '/auth/reset': typeof AuthResetRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione': typeof CollezioneIndexRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
@@ -96,9 +104,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/contatti': typeof ContattiRoute
   '/manifattura': typeof ManifatturaRoute
+  '/auth/reset': typeof AuthResetRoute
   '/collezione/$slug': typeof CollezioneSlugRoute
   '/collezione/': typeof CollezioneIndexRoute
   '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
@@ -112,6 +121,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contatti'
     | '/manifattura'
+    | '/auth/reset'
     | '/collezione/$slug'
     | '/collezione/'
     | '/admin/$id'
@@ -123,6 +133,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contatti'
     | '/manifattura'
+    | '/auth/reset'
     | '/collezione/$slug'
     | '/collezione'
     | '/admin/$id'
@@ -135,6 +146,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contatti'
     | '/manifattura'
+    | '/auth/reset'
     | '/collezione/$slug'
     | '/collezione/'
     | '/_authenticated/admin/$id'
@@ -145,7 +157,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  AuthRoute: typeof AuthRoute
+  AuthRoute: typeof AuthRouteWithChildren
   ContattiRoute: typeof ContattiRoute
   ManifatturaRoute: typeof ManifatturaRoute
   CollezioneSlugRoute: typeof CollezioneSlugRoute
@@ -189,6 +201,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/manifattura'
       preLoaderRoute: typeof ManifatturaRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/auth/reset': {
+      id: '/auth/reset'
+      path: '/reset'
+      fullPath: '/auth/reset'
+      preLoaderRoute: typeof AuthResetRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/collezione/': {
       id: '/collezione/'
@@ -241,10 +260,20 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface AuthRouteChildren {
+  AuthResetRoute: typeof AuthResetRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthResetRoute: AuthResetRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  AuthRoute: AuthRoute,
+  AuthRoute: AuthRouteWithChildren,
   ContattiRoute: ContattiRoute,
   ManifatturaRoute: ManifatturaRoute,
   CollezioneSlugRoute: CollezioneSlugRoute,
