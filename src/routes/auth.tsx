@@ -59,7 +59,31 @@ function Auth() {
     }
   };
 
+  const googleDisponibile =
+    typeof window !== "undefined" &&
+    (window.location.hostname.endsWith("lovable.app") ||
+      window.location.hostname.endsWith("lovableproject.com") ||
+      window.location.hostname === "localhost");
+
+  const recupera = async () => {
+    setErrore(null);
+    setAvviso(null);
+    if (!email) {
+      setErrore("Inserisci prima la tua e-mail.");
+      return;
+    }
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/reset`,
+    });
+    if (error) {
+      setErrore(error.message);
+      return;
+    }
+    setAvviso("Ti abbiamo inviato un'e-mail per impostare la password.");
+  };
+
   const google = async () => {
+
     setErrore(null);
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin,
