@@ -16,11 +16,11 @@ import { imageUrl, type ProductSpec } from "@/lib/products";
 export const Route = createFileRoute("/_authenticated/admin/$id")({
   head: () => ({
     meta: [
-      { title: "Scheda esemplare | Contratempo" },
-      { name: "description", content: "Modifica di un esemplare della manifattura Contratempo." },
+      { title: "Scheda esemplare | Contro il Tempo" },
+      { name: "description", content: "Modifica di un esemplare della manifattura Contro il Tempo." },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "Scheda esemplare | Contratempo" },
-      { property: "og:description", content: "Modifica di un esemplare Contratempo." },
+      { property: "og:title", content: "Scheda esemplare | Contro il Tempo" },
+      { property: "og:description", content: "Modifica di un esemplare Contro il Tempo." },
     ],
   }),
   component: () => (

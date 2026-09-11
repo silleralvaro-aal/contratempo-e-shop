@@ -6,11 +6,11 @@ export const Route = createFileRoute("/auth/reset")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Nuova Password | Contratempo" },
-      { name: "description", content: "Imposta una nuova password per l'area riservata Contratempo." },
+      { title: "Nuova Password | Contro il Tempo" },
+      { name: "description", content: "Imposta una nuova password per l'area riservata Contro il Tempo." },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "Nuova Password | Contratempo" },
-      { property: "og:description", content: "Imposta una nuova password per l'area riservata Contratempo." },
+      { property: "og:title", content: "Nuova Password | Contro il Tempo" },
+      { property: "og:description", content: "Imposta una nuova password per l'area riservata Contro il Tempo." },
     ],
   }),
   component: Reset,
