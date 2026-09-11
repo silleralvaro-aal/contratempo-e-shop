@@ -41,11 +41,9 @@ function Home() {
         </p>
         <h1 className="flex flex-col items-center font-display text-[52px] uppercase leading-[0.9] tracking-[0.15em] text-white md:text-[100px]">
           <span>Contro</span>
-          <span className="my-4 block h-px w-16 bg-primary" aria-hidden />
-          <span className="font-serif text-[26px] italic tracking-[0.3em] text-muted-foreground md:text-[44px]">
-            il
+          <span className="my-4 font-serif text-[26px] italic tracking-[0.3em] text-primary md:text-[44px]">
+            IL
           </span>
-          <span className="my-4 block h-px w-16 bg-primary" aria-hidden />
           <span>Tempo</span>
         </h1>
         <Link
