@@ -4,13 +4,13 @@ import { useState } from "react";
 export const Route = createFileRoute("/contatti")({
   head: () => ({
     meta: [
-      { title: "Contatti | Contratempo" },
+      { title: "Contatti | Contro il Tempo" },
       {
         name: "description",
         content:
-          "Contatta l'atelier Contratempo in Via Montenapoleone a Milano per una visita privata o una commissione su misura.",
+          "Contatta l'atelier Contro il Tempo in Via Montenapoleone a Milano per una visita privata o una commissione su misura.",
       },
-      { property: "og:title", content: "Contatti | Contratempo" },
+      { property: "og:title", content: "Contatti | Contro il Tempo" },
       {
         property: "og:description",
         content: "Atelier su appuntamento a Milano, Via Montenapoleone.",
@@ -42,7 +42,7 @@ function Contatti() {
             </div>
             <div>
               <dt className="text-[11px] uppercase tracking-[0.2em] text-subtle">E-mail</dt>
-              <dd className="mt-1 text-foreground">atelier@contratempo.it</dd>
+              <dd className="mt-1 text-foreground">atelier@controiltempo.it</dd>
             </div>
             <div>
               <dt className="text-[11px] uppercase tracking-[0.2em] text-subtle">Orari</dt>

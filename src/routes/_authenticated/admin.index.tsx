@@ -9,11 +9,11 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({
     meta: [
-      { title: "Amministrazione | Contratempo" },
-      { name: "description", content: "Gestione degli esemplari della manifattura Contratempo." },
+      { title: "Amministrazione | Contro il Tempo" },
+      { name: "description", content: "Gestione degli esemplari della manifattura Contro il Tempo." },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "Amministrazione | Contratempo" },
-      { property: "og:description", content: "Gestione degli esemplari Contratempo." },
+      { property: "og:title", content: "Amministrazione | Contro il Tempo" },
+      { property: "og:description", content: "Gestione degli esemplari Contro il Tempo." },
     ],
   }),
   component: () => (

@@ -12,13 +12,13 @@ export const Route = createFileRoute("/")({
   ),
   head: () => ({
     meta: [
-      { title: "Contratempo | Alta Orologeria Italiana" },
+      { title: "Contro il Tempo | Alta Orologeria Italiana" },
       {
         name: "description",
         content:
-          "Contratempo: orologi d'alta orologeria italiana, quadranti in radica e argento massiccio. Il Tempo Elegante, da Milano.",
+          "Contro il Tempo: orologi d'alta orologeria italiana, quadranti in radica e argento massiccio. Il Tempo Elegante, da Milano.",
       },
-      { property: "og:title", content: "Contratempo | Alta Orologeria Italiana" },
+      { property: "og:title", content: "Contro il Tempo | Alta Orologeria Italiana" },
       {
         property: "og:description",
         content: "Orologi italiani realizzati a mano. Ogni esemplare è irripetibile.",
@@ -40,7 +40,11 @@ function Home() {
           Il Tempo Elegante
         </p>
         <h1 className="flex flex-col items-center font-display text-[52px] uppercase leading-[0.9] tracking-[0.15em] text-white md:text-[100px]">
-          <span>Contra</span>
+          <span>Contro</span>
+          <span className="my-4 block h-px w-16 bg-primary" aria-hidden />
+          <span className="font-serif text-[26px] italic tracking-[0.3em] text-muted-foreground md:text-[44px]">
+            il
+          </span>
           <span className="my-4 block h-px w-16 bg-primary" aria-hidden />
           <span>Tempo</span>
         </h1>
@@ -58,8 +62,8 @@ function Home() {
         </h2>
         <p className="mx-auto max-w-[650px] text-base leading-[2.2] text-muted-foreground">
           Nella vita, gli imprevisti accadono. È il momento in cui il mondo trattiene il respiro.{" "}
-          <span className="italic text-primary">Contratempo</span> non è solo un orologio, è la tua
-          risposta al destino. Andare contro il tempo, superare l'ostacolo, dettare il proprio
+          <span className="italic text-primary">Contro il Tempo</span> non è solo un orologio, è la
+          tua risposta al destino. Andare contro il tempo, superare l'ostacolo, dettare il proprio
           ritmo. Alta orologeria italiana per chi non aspetta il futuro, ma lo crea.
         </p>
       </section>

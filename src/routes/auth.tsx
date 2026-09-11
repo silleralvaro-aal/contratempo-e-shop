@@ -7,11 +7,11 @@ export const Route = createFileRoute("/auth")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Accesso Riservato | Contratempo" },
-      { name: "description", content: "Area riservata alla manifattura Contratempo." },
+      { title: "Accesso Riservato | Contro il Tempo" },
+      { name: "description", content: "Area riservata alla manifattura Contro il Tempo." },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "Accesso Riservato | Contratempo" },
-      { property: "og:description", content: "Area riservata alla manifattura Contratempo." },
+      { property: "og:title", content: "Accesso Riservato | Contro il Tempo" },
+      { property: "og:description", content: "Area riservata alla manifattura Contro il Tempo." },
     ],
   }),
   component: Auth,

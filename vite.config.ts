@@ -20,8 +20,8 @@ export default defineConfig({
       filename: "sw.js",
       devOptions: { enabled: false },
       manifest: {
-        name: "Contratempo — Alta Orologeria Italiana",
-        short_name: "Contratempo",
+        name: "Contro il Tempo — Alta Orologeria Italiana",
+        short_name: "Contro il Tempo",
         description: "Orologi italiani fatti a mano. Il Tempo Elegante.",
         lang: "it",
         start_url: "/",
