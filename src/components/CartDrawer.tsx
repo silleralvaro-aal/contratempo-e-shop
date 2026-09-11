@@ -51,8 +51,8 @@ export function CartDrawer() {
             <div className="mt-16 text-center">
               <p className="font-serif text-2xl italic text-primary">Ordine confermato</p>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                Grazie. Riceverai una conferma via e-mail. Ogni Contratempo viene consegnato a mano
-                nel suo astuccio in pelle toscana.
+                Grazie. Riceverai una conferma via e-mail. Ogni Contro il Tempo viene consegnato a
+                mano nel suo astuccio in pelle toscana.
               </p>
               <p className="mt-6 text-[11px] uppercase tracking-[0.2em] text-subtle">
                 Pagamento simulato — nessun addebito

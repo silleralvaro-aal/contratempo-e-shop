@@ -12,13 +12,13 @@ export const Route = createFileRoute("/collezione/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(catalogQuery),
   head: () => ({
     meta: [
-      { title: "Collezione | Contratempo" },
+      { title: "Collezione | Contro il Tempo" },
       {
         name: "description",
         content:
-          "La collezione Contratempo: esemplari di alta orologeria italiana, dalla radica naturale allo scheletro in platino.",
+          "La collezione Contro il Tempo: esemplari di alta orologeria italiana, dalla radica naturale allo scheletro in platino.",
       },
-      { property: "og:title", content: "Collezione | Contratempo" },
+      { property: "og:title", content: "Collezione | Contro il Tempo" },
       {
         property: "og:description",
         content: "Esemplari di alta orologeria italiana, ciascuno irripetibile.",
@@ -44,7 +44,7 @@ function Collezione() {
           Collezione
         </h1>
         <p className="mt-6 max-w-[640px] text-base leading-[2] text-muted-foreground">
-          Ogni Contratempo nasce da una singola lastra di materia naturale. Le immagini mostrano
+          Ogni Contro il Tempo nasce da una singola lastra di materia naturale. Le immagini mostrano
           esemplari rappresentativi: il tuo avrà una venatura irripetibile.
         </p>
         <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

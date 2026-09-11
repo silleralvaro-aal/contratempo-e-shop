@@ -16,11 +16,11 @@ export const Route = createFileRoute("/collezione/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Esemplare non trovato | Contratempo" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Esemplare non trovato | Contro il Tempo" }, { name: "robots", content: "noindex" }],
       };
     }
     const { product } = loaderData;
-    const title = `${product.name} ${product.subtitle} | Contratempo`;
+    const title = `${product.name} ${product.subtitle} | Contro il Tempo`;
     return {
       meta: [
         { title },
