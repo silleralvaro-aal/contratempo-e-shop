@@ -1,2 +1,2 @@
-- [ ] Corregir la comprobación de acceso a Administración para evitar esperas indefinidas
-- [ ] Verificar el acceso con la sesión administradora actual
+- [x] Corregir la comprobación de acceso a Administración para evitar esperas indefinidas
+- [x] Verificar el acceso con la sesión administradora actual
