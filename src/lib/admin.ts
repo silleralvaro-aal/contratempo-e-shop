@@ -85,13 +85,22 @@ export async function removeStoredImage(path: string): Promise<void> {
 }
 
 export async function isAdmin(userId: string): Promise<boolean> {
-  const { data, error } = await supabase.rpc("has_role", { _user_id: userId, _role: "admin" });
-  if (error) return false;
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 8_000);
+  const { data, error } = await supabase
+    .rpc("has_role", { _user_id: userId, _role: "admin" })
+    .abortSignal(controller.signal);
+  window.clearTimeout(timeout);
+  if (error) throw new Error("Impossibile verificare i permessi. Riprova.");
   return Boolean(data);
 }
 
 export async function adminExists(): Promise<boolean> {
-  const { data } = await supabase.rpc("admin_exists");
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 8_000);
+  const { data, error } = await supabase.rpc("admin_exists").abortSignal(controller.signal);
+  window.clearTimeout(timeout);
+  if (error) throw new Error("Impossibile verificare i permessi. Riprova.");
   return Boolean(data);
 }
 

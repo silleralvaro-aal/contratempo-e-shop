@@ -8,7 +8,7 @@ export function AdminGuard({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
   const [errore, setErrore] = useState<string | null>(null);
 
-  const { data, isPending } = useQuery({
+  const { data, isPending, isError, refetch, isFetching } = useQuery({
     queryKey: ["admin-access"],
     queryFn: async () => {
       const { data: userData } = await supabase.auth.getUser();
@@ -17,6 +17,8 @@ export function AdminGuard({ children }: { children: ReactNode }) {
       const [admin, esisteAdmin] = await Promise.all([isAdmin(user.id), adminExists()]);
       return { admin, esisteAdmin, email: user.email ?? "" };
     },
+    retry: 2,
+    retryDelay: (attempt) => 1_000 * (attempt + 1),
   });
 
   if (isPending) {
@@ -28,6 +30,30 @@ export function AdminGuard({ children }: { children: ReactNode }) {
   }
 
   if (data?.admin) return <>{children}</>;
+
+  if (isError) {
+    return (
+      <section className="flex min-h-screen items-center justify-center px-6 pb-24 pt-36">
+        <div className="w-full max-w-[460px] border border-border bg-surface p-10 text-center">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-primary">Connessione interrotta</p>
+          <h1 className="mt-4 font-serif text-3xl font-light uppercase tracking-[0.2em] text-white">
+            Area Amministrazione
+          </h1>
+          <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+            Non è stato possibile verificare i permessi. La sessione è ancora attiva.
+          </p>
+          <button
+            type="button"
+            disabled={isFetching}
+            onClick={() => void refetch()}
+            className="mt-8 w-full bg-primary px-8 py-4 text-[12px] uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-primary/80 disabled:opacity-40"
+          >
+            {isFetching ? "Verifica in corso…" : "Riprova"}
+          </button>
+        </div>
+      </section>
+    );
+  }
 
   const rivendica = async () => {
     setErrore(null);
