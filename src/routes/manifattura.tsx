@@ -7,7 +7,7 @@ export const Route = createFileRoute("/manifattura")({
       {
         name: "description",
         content:
-          "La manifattura Contro il Tempo a Milano: argento massiccio 925, radica intagliata a mano e movimenti svizzeri automatici.",
+          "La manifattura Contro il Tempo ad Aviatico, Bergamo: argento massiccio 925, radica intagliata a mano e movimenti svizzeri automatici.",
       },
       { property: "og:title", content: "Manifattura | Contro il Tempo" },
       {

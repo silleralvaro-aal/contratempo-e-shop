@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Contro il Tempo: orologi d'alta orologeria italiana, quadranti in radica e argento massiccio. Il Tempo Elegante, da Milano.",
+          "Contro il Tempo: orologi d'alta orologeria italiana, quadranti in radica e argento massiccio. Il Tempo Elegante, da Aviatico, Bergamo.",
       },
       { property: "og:title", content: "Contro il Tempo | Alta Orologeria Italiana" },
       {
