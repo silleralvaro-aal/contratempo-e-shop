@@ -8,12 +8,12 @@ export const Route = createFileRoute("/contatti")({
       {
         name: "description",
         content:
-          "Contatta l'atelier Contro il Tempo in Via Montenapoleone a Milano per una visita privata o una commissione su misura.",
+          "Contatta l'atelier Contro il Tempo a Aviatico, Bergamo, per una visita privata o una commissione su misura.",
       },
       { property: "og:title", content: "Contatti | Contro il Tempo" },
       {
         property: "og:description",
-        content: "Atelier su appuntamento a Milano, Via Montenapoleone.",
+        content: "Atelier su appuntamento a Aviatico, Bergamo.",
       },
     ],
   }),
@@ -34,11 +34,11 @@ function Contatti() {
           <dl className="mt-10 space-y-6 text-sm leading-relaxed">
             <div>
               <dt className="text-[11px] uppercase tracking-[0.2em] text-subtle">Indirizzo</dt>
-              <dd className="mt-1 text-foreground">Via Montenapoleone 12, 20121 Milano, Italia</dd>
+              <dd className="mt-1 text-foreground">Strada Provinciale 31, n. 7, 24020 Aviatico, Bergamo, Lombardia, Italia</dd>
             </div>
             <div>
               <dt className="text-[11px] uppercase tracking-[0.2em] text-subtle">Telefono</dt>
-              <dd className="mt-1 text-foreground">+39 02 0000 0000</dd>
+              <dd className="mt-1 text-foreground">+39 000 000 0000</dd>
             </div>
             <div>
               <dt className="text-[11px] uppercase tracking-[0.2em] text-subtle">E-mail</dt>
@@ -50,7 +50,7 @@ function Contatti() {
             </div>
           </dl>
           <p className="mt-8 text-[11px] uppercase tracking-[0.15em] text-subtle">
-            Recapiti dimostrativi — inviaci quelli reali per sostituirli
+            Telefono provvisorio — indicaci quello reale per sostituirlo
           </p>
         </div>
 

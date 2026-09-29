@@ -50,7 +50,7 @@ function Manifattura() {
   return (
     <section className="px-6 pb-24 pt-36 md:px-12 md:pb-32 md:pt-44">
       <div className="mx-auto max-w-[900px]">
-        <p className="text-[11px] uppercase tracking-[0.3em] text-primary">Via Montenapoleone</p>
+        <p className="text-[11px] uppercase tracking-[0.3em] text-primary">Aviatico, Bergamo</p>
         <h1 className="mt-4 font-serif text-4xl font-light uppercase tracking-[0.2em] text-white md:text-6xl">
           Manifattura
         </h1>
